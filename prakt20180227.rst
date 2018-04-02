@@ -1,0 +1,628 @@
+
+Kapilláris szekvenálás
+======================
+
+Bash
+----
+
+https://linuxconfig.org/bash-scripting-tutorial-for-beginners
+
+.. code:: bash
+
+    %%bash
+    
+    cp ../bioinfo/tutor/prakt20180227.ipynb ./
+
+R
+-
+
+Magyar internetes jegyzetek: Abari Kálmán (2013):
+http://psycho.unideb.hu/munkatarsak/abari\_kalman/szamitastechnika\_II/bevezetes\_az\_R\_be\_2008\_04.pdf
+Solymosi Norbert (2005):
+https://cran.r-project.org/doc/contrib/Solymosi-Rjegyzet.pdf Tóth Dénes
+(2016): https://tdeenes.gitbooks.io/rintro\_ma/content/
+
+Magyar könyvek: Dinya Elek, Solymosi Norbert (2016):
+https://www.medicina-kiado.hu/kiadvanyaink/szak-es-tankonyvek/biofizika/biometria-a-klinikumban-2-/
+Reiczigel Jenő, Harnos Andrea, Solymosi Norbert (2007):
+http://biostatkonyv.hu/
+
+Az R-rendszer kis-, és nagybetűérzékeny, így például az R és az r
+különböző objektumokat jelent. Általában minden alfabetikus szimbólum
+használható a kódban használt nevekben, ezek mellett a . és az \_ is
+néhány megkötéssel. A nevek vagy .-tal vagy betűvel kezdődhetnek, ha
+.-tal kezdődik egy név, a második karakter nem lehet szám. Habár
+ékezetes betűket is használhatunk a kódokban, amennyiben hordozható
+kódot szeretnénk írni, akkor lehetőség szerint az objektumnevekben
+érdemes mellőzni az ékezetes betűket. A megjegyzéseket #-el jelöljük, az
+ezt követő karakterek a sor végéig megjegyzésként értelmeződnek.
+
+Az alaputasítások kifejezések vagy értékadások lehetnek. Ha egy
+kifejezést értékadás nélkül adunk meg mint utasítást, akkor az R
+kiértékeli és megjeleníti az értékét, ami egyben el is vész.
+
+.. code:: r
+
+    1 + 2
+
+Egy értékadás esetén ugyancsak kiértékeli a kifejezést, de az értékét
+automatikus megjelenítés nélkül eltárolja egy objektumban. Az értékadás
+általános szintaxisa objektum = kifejezés. Az S- és R-nyelvben
+eredetileg az értékadás jele a <- volt, sok esetben ma is ezt
+használják. Mivel ez a megoldás két billentyű-leütést igényel és
+eredményét tekintve nem különbözik az = jel alkalmazásához képest, a
+továbbiakban nem használjuk.
+
+.. code:: r
+
+    a = 1 + 2
+    a
+
+Itt már két utasítást használtunk, az első sor elvégzi az összeadást és
+az értékadást, a második sor pedig kiíratja az a objektumban tárolt
+értéket. Fontos megjegyezni, hogy amennyiben egy változónak új értéket
+adunk, akkor annak a korábbi értéke törlődik és felülíródik az újjal.
+
+.. code:: r
+
+    a = 5
+    a
+
+Függvények
+~~~~~~~~~~
+
+Az R-ben létrehozott és kezelt egységeket objektumoknak nevezzük. Ezek
+lehetnek változók, tömbök, karakterláncok, függvények vagy ezek komplex
+struktúrái. Az R-rendszeren belül az objektumokon operátorokkal és
+függvényekkel végezhetünk különböző műveleteket. A függvények a
+fuggveny.neve(arg1, arg2, ...) szintaxis szerint épülnek fel. A
+fuggveny.neve határozza meg a függvény nevét, amivel azonosítja a
+rendszer a meghívandó eljárás(oka)t. A zárójelek közé foglalt értékek a
+függvény argumentumai, amelyekkel a függvény futását állítjuk be.
+Általában a függvények nem minden argumentumának kell értéket adnunk,
+mivel a függvény rendelkezik alapértelmezett értékekkel.
+
+Objektumok
+~~~~~~~~~~
+
+Az R-en belül mind az adatstruktúrák, mind pedig a függvények
+objektumként jelennek meg. Az egyes objektumok típusára vonatkozó
+információkat a typeof(x)-függvény segítségével olvashatjuk ki.
+
+.. code:: r
+
+    typeof(a)
+
+.. code:: r
+
+    a = 'szöveg'
+    typeof(a)
+
+Adattároló objektumok
+^^^^^^^^^^^^^^^^^^^^^
+
+Vektorok
+''''''''
+
+A vektorokat alkothatják numerikus, szöveges, komplex vagy logikai
+adattípusok. Ugyanazon vektoron belül csak egyféle típus használható.
+
+A vector()-függvénnyel létrehozhatunk különböző típusú „üres”
+vektorokat, numerikus vektort.
+
+.. code:: r
+
+    a = vector(mode = "numeric", length = 5)
+    a
+
+.. code:: r
+
+    a = vector(mode = "logical", length = 5)
+    a
+
+.. code:: r
+
+    a = vector(mode = "character", length = 5)
+    a
+
+Ugyanezt érhetjük el egyetlen argumentum, a length megadásával, ha a
+numeric()-, a logical()- vagy a character()-függvényeket használjuk.
+
+.. code:: r
+
+    a = numeric(length = 5)
+    a
+
+.. code:: r
+
+    a = logical(length = 5)
+    a
+
+.. code:: r
+
+    a = character(length = 5)
+    a
+
+.. code:: r
+
+    ertekek = c(12,87,54,23)
+    ertekek
+
+Az indexrendszer nagyon rugalmas és hatékony eszköz az egyes adattároló
+objektumok elemeinek kiolvasására, bármely adattípus esetén. Az
+indexeket az objektum után írt szögletes zárójellel adjuk meg. Fontos
+megjegyezni, hogy (több programnyelvvel ellentétben) az indexelés nem
+0-ról, hanem 1-ről indul. Ha az ertekek-vektor harmadik elemét
+szeretnénk kiolvasni, így tehetjük meg:
+
+.. code:: r
+
+    ertekek[3]
+
+Sanger szekvenálás
+==================
+
+https://www.youtube.com/watch?v=ONGdehkB8jU
+
+https://www.youtube.com/watch?v=e2G5zx-OJIw
+
+.. code:: r
+
+    # R
+    library(sangerseqR)
+    
+    #getwd()
+    #setwd('/home/sn/data')
+    setwd('/home/sn/Dropbox/genprakt2018')
+    #getwd()
+    #list.files()
+    
+    abif.F = read.abif('sangerF.ab1')
+    abif.R = read.abif('sangerR.ab1')
+
+
+.. code:: r
+
+    abif.F
+
+A nevek attribútumok, amelyeknek több fajtája is lehet (nevek,
+oszlopnevek, sornevek, dimenziónevek). Többek között arra is alkalmasak,
+hogy objektumok elemeire hivatkozhassunk. Ahhoz, hogy nevek segítségével
+hivatkozzunk elemekre, tudnunk kell, hogy milyen nevek vannak az
+objektumban. Az objektumban előforduló neveket többféleképpen is
+kiolvashatjuk, például a slotNames()-függvénnyel.
+
+.. code:: r
+
+    slotNames(abif.F)
+
+.. code:: r
+
+    abif.F@header
+
+.. code:: r
+
+    slotNames(abif.F@header)
+
+.. code:: r
+
+    abif.F@header@abif
+
+.. code:: r
+
+    slotNames(abif.F@directory)
+
+.. code:: r
+
+    names(abif.F@data)
+
+.. code:: r
+
+    # a FWO_.1 objektum tartalmazza, hogy a DATA.9 - DATA.11 objektumban tárolt 
+    # intenzitásértékeket mely bázisoknak felelnek meg
+    abif.F@data$FWO_.1
+
+.. code:: r
+
+    # így a G bázisra vonatkozó intenzitások a DATA.9 vektorban vannak
+    abif.F@data$DATA.9
+
+.. code:: r
+
+    typeof(abif.F@data$DATA.9)
+
+.. code:: r
+
+    range(abif.F@data$DATA.9)
+
+.. code:: r
+
+    length(abif.F@data$DATA.9)
+
+data.frame
+''''''''''
+
+A data.frame vagy más néven adattábla olyan táblázat, aminek oszlopai
+vektorként foghatók fel. A adattáblákat alkothatják numerikus, szöveges,
+komplex vagy logikai adattípusok. Ugyanazon data.frame-en belül többféle
+típus használható. Fájlból beolvasott táblázatok általában ilyen
+objektumként jelennek meg az R-ben, de létrehozhatjuk a
+data.frame()-függvénnyel is.
+
+.. code:: r
+
+    bazis1 = abif.F@data$DATA.9
+    bazis2 = abif.F@data$DATA.10
+    bazis3 = abif.F@data$DATA.11
+    bazis4 = abif.F@data$DATA.12
+    
+    tablazat = data.frame(bazis1, bazis2, bazis3, bazis4)
+
+Az adattábla létrehozásakor ügyeljünk arra, hogy az alkotó vektorok
+egyforma hosszúságúak legyenek. Ha az egyik vektor rövidebb a másiknál,
+és a hosszabb vektor hossza osztható a rövidebb vektor hosszával, akkor
+a függvény a rövidebb vektor ismétlésével kipótolja a különbséget.
+
+.. code:: r
+
+    dim(tablazat)
+
+.. code:: r
+
+    head(tablazat)
+
+Ha data.frame-ból szeretnénk kiolvasni értékeket, azt két index
+alkalmazásával tehetjük meg. A tablazat data.frame-ból egy elemet a
+tablazat[i, j] utasítással olvashatunk ki, ahol i a data.frame sorát, j
+pedig az oszlopát meghatározó index.
+
+Egy egész sor olvasásához a tablazat[i, ], egy egész oszlopéhoz pedig az
+x[ ,j] parancsot használhatjuk.
+
+Az indexek segítségével nem csak kiolvashatunk értékeket az adattároló
+objektumokból, hanem lekérdezéseket is végezhetünk azokból, illetve
+elemeiket módosíthatjuk. Továbbá indexek segítségével az objektumból
+eltávolíthatunk elemeket, sorokat, oszlopokat.
+
+.. code:: r
+
+    tablazat[2, 4]
+
+.. code:: r
+
+    tablazat[2, ]
+
+.. code:: r
+
+    tablazat[, 1]
+
+Az objektumok elemeire nem csak indexekkel hivatkozhatunk, de nevekkel
+is.
+
+.. code:: r
+
+    names(tablazat)
+
+.. code:: r
+
+    colnames(tablazat)
+
+.. code:: r
+
+    rownames(tablazat)
+
+.. code:: r
+
+    tablazat$bazis1
+
+.. code:: r
+
+    tablazat[,'bazis1']
+
+.. code:: r
+
+    colnames(tablazat) = c('G', 'A', 'T', 'C')
+    head(tablazat)
+
+.. code:: r
+
+    tablazat$G
+
+.. code:: r
+
+    tablazat = tablazat[,c('A', 'C', 'G', 'T')]
+    head(tablazat)
+
+.. code:: r
+
+    tablazat$G
+
+.. code:: r
+
+    plot(tablazat$G)
+
+.. code:: r
+
+    plot(tablazat$G, pch=16)
+
+.. code:: r
+
+    plot(tablazat$G, pch=16, col='red')
+
+.. code:: r
+
+    plot(tablazat$G, col='red', type='l')
+
+.. code:: r
+
+    plot(tablazat$G, col='red', type='h')
+
+.. code:: r
+
+    library(RColorBrewer)
+    
+    display.brewer.all() 
+
+.. code:: r
+
+    # az elsődleges szekvencia, amelyet módosíthattak 
+    abif.F@data$PBAS.1
+
+.. code:: r
+
+    nchar(abif.F@data$PBAS.1)
+
+.. code:: r
+
+    # mindig az eredeti elsődleges szekvencia
+    abif.F@data$PBAS.2
+
+.. code:: r
+
+    # a másodlagos szekvencia
+    abif.F@data$P2BA.1
+
+.. code:: r
+
+    # az intenzitásvektorokon belül a peak-eket meghatározó indexek
+    abif.F@data$PLOC.1
+
+.. code:: r
+
+    length(abif.F@data$PLOC.1)
+
+.. code:: r
+
+    length(abif.F@data$PLOC.2)
+
+.. code:: r
+
+    abif.F@data$PLOC.2 == abif.F@data$PLOC.1
+
+.. code:: r
+
+    sum(abif.F@data$PLOC.2 == abif.F@data$PLOC.1)
+
+.. code:: r
+
+    sum(abif.F@data$PLOC.2 != abif.F@data$PLOC.1)
+
+.. code:: r
+
+    # az elsődleges basecalling peakjeinek aplitúdója
+    abif.F@data$P1AM.1
+
+.. code:: r
+
+    # a másodlagos basecalling peakjeinek aplitúdója, opcionális
+    abif.F@data$P2AM.1
+
+.. code:: r
+
+    sseq = sangerseq(abif.F)
+    str(sseq)
+
+.. code:: r
+
+    slotNames(sseq)
+
+.. code:: r
+
+    # traceMatrix A,C,G,T oszlopsorrendben tartalmazza az összes intenzitásértéket
+    head(traceMatrix(sseq))
+
+.. code:: r
+
+    # mindegyik bázisra vonatkozóan tartalmazza azt az indexet, ahol a Basecall window-al a maximális peaket találta
+    # vegyük észre, hogy ezek az indexértékek 1-el nagyobbak, mint a nyers adatokból lekérdezett volt
+    head(peakPosMatrix(sseq))
+
+.. code:: r
+
+    sum(peakPosMatrix(sseq)[,1] != peakPosMatrix(sseq)[,2])
+
+.. code:: r
+
+    is.na(peakPosMatrix(sseq)[,3])
+
+.. code:: r
+
+    sum(is.na(peakPosMatrix(sseq)[,3]))
+
+.. code:: r
+
+    sum(is.na(peakPosMatrix(sseq)[,4]))
+
+.. code:: r
+
+    # az adott ablakban mért legnagyobb amplitúdó, a függvény leírása szerint mindegyik bázisra, 
+    # azonban itt csak az első és második oszlop tartalmaz adatot, és ezek pedig megyegyeznek a P1AM.1 és P2AM.1 értékekkel
+    head(peakAmpMatrix(sseq))
+
+.. code:: r
+
+    summary(peakAmpMatrix(sseq))
+
+.. code:: r
+
+    primarySeq(sseq)
+
+.. code:: r
+
+    primarySeq(sseq, string=T)
+
+.. code:: r
+
+    chromatogram(sseq, trim5=0, trim3=1033, width=50, showcalls='both')
+
+.. code:: r
+
+    peakAmpMatrix(sseq)[1:28,1]
+
+Az ábrán a kék háttér azt jelzi, ahol az elsődleges és a másodlagos
+szekvencia eltér egymástól, azonban ha megvizsgáljuk az ábrát, akkor azt
+is láthatjuk, hogy a másodlagos szekvencia bázisai az elsődlegeshez
+viszonyítva nagyon alacsony intenzitásból lehetnek meghatározva.
+
+Homozigóta szekvencia esetén ez nem jelent problémát, mivel akkor
+használhatjuk csak az elsődleges szekvenciát. Homozigóta szekvenciáknál
+azonban nem mindegy, hogy a másodlagos szekvencia milyen
+megalapozottságú.
+
+A makeBaseCalls()-függvénnyel saját beállításokkal azonosíthatunk
+másodlagos szekvenciát. A függvény ratio-argumentumával azt állíthatjuk
+be, hogy az elsődleges szekvencia intenzitásértékéhez viszonyítva
+mekkora intenzitás értéktől tekintjük azt jelnek és nem zajnak.
+
+.. code:: r
+
+    seq.new = makeBaseCalls(sseq, ratio = 0.33)
+    
+    chromatogram(seq.new, trim5=0, trim3=1033, width=50, showcalls='both')
+
+.. code:: r
+
+    illesztes = pairwiseAlignment(primarySeq(seq.new), primarySeq(sseq), type='global-local')
+    writePairwiseAlignments(illesztes)
+
+Ehhez hasonlóan illeszthetjük az elsődleges szekvenciát a referencia
+genomra. Ennek első lépése, hogy letöltjük a referencia-szekvenciát
+FASTA formátumban és DNAString-é alakítjuk.
+
+.. code:: r
+
+    library(rentrez)
+    
+    fasta.mt = entrez_fetch(db='nuccore', id='NC_001941.1', rettype='fasta')
+    fasta.mt
+
+.. code:: r
+
+    library(seqinr)
+    
+    seq.mt = read.fasta(textConnection(fasta.mt), as.string=T)
+    ref = DNAString(seq.mt[[1]][1])
+    ref
+
+.. code:: r
+
+    illesztes = pairwiseAlignment(primarySeq(seq.new), ref, type='global-local')
+    writePairwiseAlignments(illesztes)
+
+A forward és reverse szekvenciákból a sangeranalyseR-csomaggal
+létrehozhatunk konszenzus szekvenciát.
+
+.. code:: r
+
+    fwd = readsangerseq('sangerF.ab1')
+    fwd = primarySeq(fwd, string=T)
+    
+    rev = readsangerseq('sangerR.ab1')
+    rev = primarySeq(rev)
+    rev = reverseComplement(rev)
+    
+    reads = DNAStringSet(c(fwd, as.character(rev)))
+    names(reads) = c('+', '-')
+    reads
+
+.. code:: r
+
+    library(sangeranalyseR)
+    
+    merged.reads = merge.reads(reads)
+    merged.reads
+
+
+.. code:: r
+
+    res = DNAStringSet(merged.reads$consensus)
+    names(res) = 'első konszenzus'
+    writeXStringSet(res, filepath='konszenzus.fa')
+
+.. code:: r
+
+    res
+
+Eddig nem foglalkoztunk azzal, hogy a meghatározott bázisok különböző
+minőségűek. A kiindulási ABIF-állomány tartalmazza a bázisok minőségére
+vonatkozó információkat is, a PCON.1 és PCON.2 változóként. Az előzőt
+módosíthatja az adállományt létrehozó, míg az utóbbi az eredeti
+bázisminőséget tárolja.
+
+Ezt az ún. Phred minőségi pontszámmal
+(https://en.wikipedia.org/wiki/Phred\_quality\_score) fejezik ki.
+
+:math:`Q = -10 \times log_{10} P`
+
+Ennek valószínűséggé való átalakítása:
+
+:math:`P = 10^{\frac{-Q}{10}}`
+
+.. code:: r
+
+    Q = abif.F@data$PCON.1
+    summary(Q)
+
+.. code:: r
+
+    P = 10^(-1*Q/10)
+    summary(P)
+
+.. code:: r
+
+    plot(Q, P, pch=16)
+    abline(h=0.0001, col='red')
+
+.. code:: r
+
+    basecall.pontossag = (1-P)*100
+    plot(Q, basecall.pontossag, pch=16, ylab='Pontosság %')
+    abline(h=99.9, col='red')
+
+.. code:: r
+
+    (trims = trim.mott(abif.F, cutoff=0.0001))
+
+.. code:: r
+
+    (trims = trim.mott(abif.F, cutoff=0.01))
+
+A 0.01 határértékkel mehatározott szekvencia-tartományok alapján egy
+alternatív konszenzus-szekvenciát határozhatunk meg
+
+.. code:: r
+
+    seq.f = primarySeq(sangerseq(abif.F), string=T)
+    seq.f.t = substr(seq.f, trims$start, trims$finish)
+    
+    trims = trim.mott(abif.R, cutoff=0.01)
+    seq.r = primarySeq(sangerseq(abif.R))
+    seq.r = seq.r[trims$start:trims$finish]
+    seq.r = reverseComplement(seq.r)
+    seq.r.t = as.character(seq.r)
+    
+    reads = DNAStringSet(c(seq.f.t, seq.r.t))
+    names(reads) = c('+', '-')
+    
+    merged.reads = merge.reads(reads)
+    merged.reads
