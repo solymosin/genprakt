@@ -1,0 +1,48 @@
+
+R
+=
+
+https://cran.r-project.org/
+
+Bioconductor
+============
+
+https://www.bioconductor.org/
+
+.. code:: bash
+
+    %%bash
+    
+    ls -lh ../bioinfo/data
+
+
+.. code:: bash
+
+    %%bash
+    mkdir data
+
+.. code:: bash
+
+    %%bash
+    cp ../bioinfo/data/sanger* data/
+
+.. code:: bash
+
+    %%bash
+    
+    ls data
+
+.. code:: r
+
+    library(sangerseqR)
+    
+    #getwd()
+    setwd('data')
+    #getwd()
+    #list.files()
+    
+    abif.F = read.abif('sangerF.ab1')
+    #abif.F
+    
+    abif.R = read.abif('sangerR.ab1')
+
