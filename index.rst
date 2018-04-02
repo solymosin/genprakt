@@ -11,7 +11,11 @@ Salve!
    :caption: Gyakorlatok:
 
    prakt20180220
-
+   prakt20180227
+   prakt20180306F
+   prakt20180313F
+   prakt20180320F
+   prakt20180327
 
 Indexek és táblázatok
 ==================
