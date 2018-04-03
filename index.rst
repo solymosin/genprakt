@@ -10,13 +10,8 @@ Salve!
    :maxdepth: 2
    :caption: Gyakorlati jegyzetek:
 
-   prakt20180220
-   prakt20180227
-   prakt20180306F
-   prakt20180313F
-   prakt20180320F
-   prakt20180327
    sanger/sanger
+   ngs/ngs
    motifs/motifs
 
 Indexek és táblázatok
