@@ -16,6 +16,7 @@ Salve!
    prakt20180313F
    prakt20180320F
    prakt20180327
+   motifs/motifs
 
 Indexek és táblázatok
 ==================
