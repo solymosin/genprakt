@@ -8,7 +8,7 @@ Salve!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Gyakorlatok:
+   :caption: Gyakorlati jegyzetek:
 
    prakt20180220
    prakt20180227
@@ -16,6 +16,7 @@ Salve!
    prakt20180313F
    prakt20180320F
    prakt20180327
+   sanger/sanger
    motifs/motifs
 
 Indexek és táblázatok
