@@ -12,7 +12,8 @@ Salve!
 
    sanger/sanger
    ngs/ngs
-   motifs/motifs
+   vcf/vcf01
+   motifs/motifs   
 
 Indexek és táblázatok
 ==================
